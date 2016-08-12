@@ -31,6 +31,11 @@ RUN \
     apt-get -y install  \
             python \
             python3 \
+            \
+            build-essential \
+            libssl-dev \
+            libffi-dev \
+            python-dev \
     && \
     echo "===> Adding usefull packages for devops shell-works..."  && \
     apt-get -y install  \
@@ -64,8 +69,7 @@ RUN \
     echo "===> Configuring Python and PIP... (debian jessie is not very pip friendly)"  && \
     curl https://bootstrap.pypa.io/get-pip.py| python2 && \
     curl https://bootstrap.pypa.io/get-pip.py| python3 && \
-    pip2 install --upgrade pip setuptools wheel && \
-    pip3 install --upgrade pip setuptools wheel && \
+    echo "bootstrapper already installed setuptools and wheel" && \
     \
     rm $(which pip) && \
     ln -s $(which pip2) /usr/local/bin/pip && \
