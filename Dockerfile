@@ -29,11 +29,13 @@ RUN \
     \
     echo "===> Adding Python runtime..."  && \
     apt-get -y install  \
-            python python-pip \
-            python3 python3-pip \
+            python \
+            python3 \
     && \
     echo "===> Adding usefull packages for devops shell-works..."  && \
     apt-get -y install  \
+            sudo \
+            \
             openssh-client \
             \
             bash \
@@ -59,9 +61,12 @@ RUN \
             \
     && \
     \
-    echo "===> Configuring Python and PIP..."  && \
-    pip3 install --upgrade pip setuptools wheel && \
+    echo "===> Configuring Python and PIP... (debian jessie is not very pip friendly)"  && \
+    curl https://bootstrap.pypa.io/get-pip.py| python2 && \
+    curl https://bootstrap.pypa.io/get-pip.py| python3 && \
     pip2 install --upgrade pip setuptools wheel && \
+    pip3 install --upgrade pip setuptools wheel && \
+    \
     rm $(which pip) && \
     ln -s $(which pip2) /usr/local/bin/pip && \
     \
